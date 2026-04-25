@@ -20,6 +20,7 @@ import CarrouselCampus from './Carrousel-Campus/index.js';
 import chiffresCles from './chiffres-cles/index.js';
 
 
+
 export function registerBlocks(editor) {
     const bm = editor.BlockManager;
 
