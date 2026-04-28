@@ -18,6 +18,7 @@ import carousel from './carousel/index.js';
 import CarrouselTemoignages from './carrousel-temoignages/index.js';
 import CarrouselCampus from './Carrousel-Campus/index.js'; 
 import chiffresCles from './chiffres-cles/index.js';
+import icartBlocks from './icart/index.js';
 
 
 
@@ -28,6 +29,7 @@ export function registerBlocks(editor) {
     const categories = {
         EFAP: 'EFAP Components',
         BRASSART: 'BRASSART Components',
+        ICART: 'ICART Components',
         ESSENTIAL: 'Essential Blocks'
     };
 
@@ -38,7 +40,8 @@ export function registerBlocks(editor) {
         hero, twoColumn, richText, ctaButton, imageCaption, spacer,
         horizontalMenu, bandeRose, programmeList, programmeEditorial,
         troisRaisons, formSfmc, chiffresCles,
-        carousel, CarrouselTemoignages, CarrouselCampus
+        carousel, CarrouselTemoignages, CarrouselCampus,
+        icartBlocks
         
     ].forEach(blockInit => {
         if (typeof blockInit === 'function') {

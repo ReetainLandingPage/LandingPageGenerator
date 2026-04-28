@@ -184,5 +184,28 @@
       "cta-button",
       "footer-efap"
     ]
+  },
+  {
+    "id": "icart",
+    "name": "ICART",
+    "fullName": "L'école du management culturel et du marché de l'art",
+    "description": "Management Culturel, Marché de l'Art & Médiation",
+    "color": "#E35111",
+    "colorLight": "rgba(227,81,17,0.12)",
+    "emoji": "🎭",
+    "defaultBlocks": [
+      "header-icart",
+      "hero",
+      "horizontal-menu-icart",
+      "bande-orange-icart",
+      "programme-list-icart",
+      "chiffres-cles-icart",
+      "carrousel-campus-icart",
+      "carrousel-temoignages-icart",
+      "reasons-icart",
+      "form-sfmc",
+      "cta-button",
+      "footer-icart"
+    ]
   }
 ]
