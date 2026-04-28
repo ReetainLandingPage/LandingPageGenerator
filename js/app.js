@@ -139,7 +139,8 @@ function initEditor(schoolId) {
 
     window.editor = editor;
 }
-  function filterBlocksBySchool(editor, schoolId) {
+
+function filterBlocksBySchool(editor, schoolId) {
     if (!schoolId || schoolId === 'master') return; 
 
     const bm = editor.BlockManager;
@@ -165,6 +166,10 @@ function initEditor(schoolId) {
     });
 
     blocksToRemove.forEach(id => bm.remove(id));
+
+    // Refresh UI
+    bm.render();
+}
 
     // Refresh UI
     bm.render();
