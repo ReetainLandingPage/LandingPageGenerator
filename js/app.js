@@ -23,6 +23,15 @@ const BLOCK_THUMBNAILS = {
     Carrousel: 'assets/block-thumbnails/carrousel.svg',
     CarrouselTemoignages: 'assets/block-thumbnails/carrousel-temoignages.svg',
     CarrouselCampus: 'assets/block-thumbnails/carrousel-campus.svg',
+    'header-icart': 'assets/block-thumbnails/header-icart.svg',
+    'footer-icart': 'assets/block-thumbnails/footer-icart.svg',
+    'horizontal-menu-icart': 'assets/block-thumbnails/horizontal-menu.svg',
+    'bande-orange-icart': 'assets/block-thumbnails/bande-orange.svg',
+    'programme-list-icart': 'assets/block-thumbnails/programme-list.svg',
+    'chiffres-cles-icart': 'assets/block-thumbnails/chiffres-cles.svg',
+    'carrousel-campus-icart': 'assets/block-thumbnails/carrousel-campus.svg',
+    'carrousel-temoignages-icart': 'assets/block-thumbnails/carrousel-temoignages.svg',
+    'reasons-icart': 'assets/block-thumbnails/trois-raisons.svg',
     default: 'assets/block-thumbnails/default.svg'
 };
 
@@ -123,6 +132,11 @@ function initEditor(schoolId) {
         }
     });
 
+    // --- Specific Logic for ICART ---
+    if (schoolId === 'icart') {
+        initIcartSpecifics(editor);
+    }
+
     window.editor = editor;
 }
 
@@ -157,6 +171,9 @@ function filterBlocksBySchool(editor, schoolId) {
     bm.render();
 }
 
+    // Refresh UI
+    bm.render();
+}
 function updateSchoolUI(school) {
     const indicator = document.getElementById('school-indicator');
     const dot = document.getElementById('school-dot');
@@ -530,6 +547,25 @@ function initUI(editor) {
             category: 'Custom Blocks',
             attributes: { class: 'gjs-fonts gjs-f-b1' }
         });
+    });
+}
+
+function initIcartSpecifics(editor) {
+    console.log('🎭 ICART Specific Logic Initialized');
+    
+    editor.on('load', () => {
+        setTimeout(() => {
+            const bm = editor.BlockManager;
+            const icartCat = bm.getCategories().find(c => (c.get('id') || '').includes('ICART'));
+            if (icartCat) icartCat.set('open', true);
+            
+            bm.getCategories().forEach(c => {
+                const catId = c.get('id') || '';
+                if (!catId.includes('ICART') && !catId.includes('Essential')) {
+                    c.set('open', false);
+                }
+            });
+        }, 200);
     });
 }
 
