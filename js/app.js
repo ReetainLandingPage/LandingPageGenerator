@@ -139,8 +139,7 @@ function initEditor(schoolId) {
 
     window.editor = editor;
 }
-
-function filterBlocksBySchool(editor, schoolId) {
+  function filterBlocksBySchool(editor, schoolId) {
     if (!schoolId || schoolId === 'master') return; 
 
     const bm = editor.BlockManager;
@@ -163,10 +162,11 @@ function filterBlocksBySchool(editor, schoolId) {
         if (isOtherSchool && !isRequiredByDefault) {
             blocksToRemove.push(id);
         }
-     });
+    });
 
     blocksToRemove.forEach(id => bm.remove(id));
 
+    // Refresh UI
     bm.render();
 }
 function updateSchoolUI(school) {
