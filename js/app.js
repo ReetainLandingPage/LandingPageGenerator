@@ -39,14 +39,16 @@ const BLOCK_THUMBNAILS = {
 let CURRENT_SCHOOL = null;
 
 document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Detect school from URL
     const params = new URLSearchParams(window.location.search);
     const schoolId = params.get('school');
 
     if (!schoolId) {
-        window.location.href = 'school-selector.html';
+        window.location.href = 'school-selector.html'; // Redirect to selector if no school
         return;
     }
 
+    // 2. Fetch school config (MANDATORY BEFORE INIT)
     try {
         const response = await fetch(`/api/school/${schoolId}`);
         if (response.ok) {
@@ -62,6 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.error('Failed to load school config', e);
     }
 
+    // Now initialize editor
     initEditor(schoolId);
 });
 
@@ -110,16 +113,19 @@ function initEditor(schoolId) {
         },
     });
 
+    // Custom UI Logic
     initUI(editor);
     initBlockThumbnailMedia(editor);
-
+    
+    // Register Modules
     initStorage(editor);
     initExport(editor);
     registerBlocks(editor);
 
+    // Apply school-based block filtering
     editor.on('load', () => {
         filterBlocksBySchool(editor, schoolId);
-
+        
         const wrapper = editor.getWrapper();
         if (!wrapper || wrapper.components().length === 0) {
             loadDefaultTemplate(editor);
@@ -135,40 +141,36 @@ function initEditor(schoolId) {
 }
 
 function filterBlocksBySchool(editor, schoolId) {
-    if (!schoolId || schoolId === 'master') return;
+    if (!schoolId || schoolId === 'master') return; 
 
-    // Wrap in setTimeout to ensure all blocks are registered before filtering
-    setTimeout(() => {
-        const bm = editor.BlockManager;
-        const allBlocks = bm.getAll().models; // Use models array to avoid mutation issues during iteration
-        const targetSchoolName = schoolId.toUpperCase();
-        const defaultBlocks = CURRENT_SCHOOL?.defaultBlocks || [];
+    const bm = editor.BlockManager;
+    const allBlocks = bm.getAll().models; // Use models array to avoid mutation issues during iteration
+    const targetSchoolName = schoolId.toUpperCase(); 
+    const defaultBlocks = CURRENT_SCHOOL?.defaultBlocks || [];
 
-        const blocksToRemove = [];
+    const blocksToRemove = [];
 
-        allBlocks.forEach(block => {
-            const id = block.get('id');
-            const category = block.get('category');
-            const categoryLabel = (typeof category === 'object' ? category.get('id') : category) || '';
+    allBlocks.forEach(block => {
+        const id = block.get('id');
+        const category = block.get('category');
+        const categoryLabel = (typeof category === 'object' ? category.get('id') : category) || '';
 
-            const isTargetSchool = categoryLabel === `${targetSchoolName} Components`;
-            const isOtherSchool = categoryLabel.includes(' Components') && !isTargetSchool;
-            const isRequiredByDefault = defaultBlocks.includes(id);
+        const isTargetSchool = categoryLabel === `${targetSchoolName} Components`;
+        const isOtherSchool = categoryLabel.includes(' Components') && !isTargetSchool;
+        const isRequiredByDefault = defaultBlocks.includes(id);
 
-            // We remove it only if it belongs to another school AND it's not required by the current school's default template
-            if (isOtherSchool && !isRequiredByDefault) {
-                blocksToRemove.push(id);
-            }
-        });
+        // We remove it only if it belongs to another school AND it's not required by the current school's default template
+        if (isOtherSchool && !isRequiredByDefault) {
+            blocksToRemove.push(id);
+        }
+    });
 
-        console.log(`🧹 Removing ${blocksToRemove.length} blocks from other schools for ${schoolId}`);
+    blocksToRemove.forEach(id => bm.remove(id));
 
-        blocksToRemove.forEach(id => bm.remove(id));
-
-        // Refresh UI
-        bm.render();
-    }, 50);
+    // Refresh UI
+    bm.render();
 }
+
 
 function updateSchoolUI(school) {
     const indicator = document.getElementById('school-indicator');
@@ -207,13 +209,14 @@ function initBlockThumbnailMedia(editor) {
 function loadDefaultTemplate(editor) {
     editor.setComponents('');
     editor.setStyle('');
-
+    
+    // Use school specific blocks or fallback to a safe generic list
     const defaultBlocks = CURRENT_SCHOOL?.defaultBlocks || [
         'hero',
         'rich-text',
         'cta-button'
     ];
-
+    
     console.log(`Loading default template for ${CURRENT_SCHOOL?.name || 'unknown'}:`, defaultBlocks);
 
     defaultBlocks.forEach(blockId => {
@@ -410,7 +413,7 @@ function initUI(editor) {
         const schoolId = CURRENT_SCHOOL?.id || 'unknown';
         const storageKey = `reetain-builder__${schoolId}__currentProject`;
         let projectName = localStorage.getItem(storageKey);
-
+        
         const newName = await showPrompt({
             title: 'Save Project',
             message: `Choose a name for this ${CURRENT_SCHOOL?.name || 'school'} project.`,
@@ -420,10 +423,11 @@ function initUI(editor) {
         });
 
         if (!newName) return;
-
+        
         projectName = newName;
         localStorage.setItem(storageKey, projectName);
 
+        // Naming convention: school-{id}__name
         const fullProjectName = `school-${schoolId}__${projectName}`;
 
         const projectData = {
@@ -480,6 +484,11 @@ function initUI(editor) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(projectData)
             });
+            
+            // Note: server.js handles project serving via Supabase or projects/ folder? 
+            // Current server.js saves to Supabase but doesn't have a direct /projects/ route.
+            // However, previous versions had projects folder.
+            // Let's just show an alert for now if the preview route is not yet implemented on server.
             await showAlert({ title: 'Preview', message: 'Preview is being generated. You can find it in your project list.' });
         } catch (e) {
             console.error('Preview failed', e);
@@ -513,7 +522,7 @@ function initUI(editor) {
 
                         const content = `${html}<style>${css}</style>`;
                         editor.BlockManager.add(`custom-${Date.now()}`, { label, content, category: 'Custom Blocks', attributes: { class: 'gjs-fonts gjs-f-b1' } });
-
+                        
                         const schoolId = CURRENT_SCHOOL?.id || 'global';
                         const customBlocks = JSON.parse(localStorage.getItem(`reetain-builder__${schoolId}__customBlocks`) || '[]');
                         customBlocks.push({ label, html, css });
@@ -541,13 +550,13 @@ function initUI(editor) {
 
 function initIcartSpecifics(editor) {
     console.log('🎭 ICART Specific Logic Initialized');
-
+    
     editor.on('load', () => {
         setTimeout(() => {
             const bm = editor.BlockManager;
             const icartCat = bm.getCategories().find(c => (c.get('id') || '').includes('ICART'));
             if (icartCat) icartCat.set('open', true);
-
+            
             bm.getCategories().forEach(c => {
                 const catId = c.get('id') || '';
                 if (!catId.includes('ICART') && !catId.includes('Essential')) {
