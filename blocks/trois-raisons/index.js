@@ -10,10 +10,9 @@ export default function(editor, categories) {
                     </div>
                     <div class="trois-raisons-content">
                         <div class="tr-header">
-                            <h2 class="tr-title">3 BONNES RAISONS<br>DE PARTICIPER</h2>
+                            <h2 class="tr-title">3 BONNES RAISONS<br>DE NOUS REJOINDRE</h2>
                             <div class="tr-title-line">
                                 <div class="tr-line"></div>
-                                <span class="tr-b-logo">B</span>
                             </div>
                         </div>
                         <ul class="tr-list">
@@ -27,14 +26,14 @@ export default function(editor, categories) {
                             <li class="tr-item">
                                 <div class="tr-icon">🎓</div>
                                 <div class="tr-text">
-                                    <span class="tr-highlight">Échanger</span> avec nos étudiants et nos équipes
+                                    <span class="tr-highlight">Échanger</span> avec nos étudiants
                                     <span class="tr-sub">et pouvoir leur poser toutes vos questions.</span>
                                 </div>
                             </li>
                             <li class="tr-item">
                                 <div class="tr-icon">🏆</div>
                                 <div class="tr-text">
-                                    <span class="tr-highlight">Vous immerger</span> dans la culture BRASSART
+                                    <span class="tr-highlight">Vous immerger</span> dans notre culture
                                     <span class="tr-sub">en parcourant les travaux de nos étudiants exposés sur le campus.</span>
                                 </div>
                             </li>
@@ -62,7 +61,7 @@ export default function(editor, categories) {
                     display: block;
                 }
                 .trois-raisons-content {
-                    background-color: #E8A020;
+                    background-color: var(--brand-primary, #E8A020);
                     padding: 50px 40px;
                     display: flex;
                     flex-direction: column;
@@ -90,11 +89,6 @@ export default function(editor, categories) {
                     max-width: 80px;
                     height: 2px;
                     background: #fff;
-                }
-                .tr-b-logo {
-                    font-size: 18px;
-                    font-weight: 900;
-                    color: #fff;
                 }
                 .tr-list {
                     list-style: none;
@@ -132,7 +126,7 @@ export default function(editor, categories) {
                 .tr-highlight {
                     font-weight: 800;
                     background-color: #fff;
-                    color: #000;
+                    color: var(--brand-primary, #000);
                     padding: 1px 6px;
                     border-radius: 3px;
                     display: inline-block;

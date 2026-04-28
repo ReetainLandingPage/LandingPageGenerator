@@ -73,7 +73,7 @@ export default function(editor, categories) {
                 }
                 .form-input:focus {
                     outline: none;
-                    border-color: #C61063;
+                    border-color: var(--brand-secondary, #3b82f6);
                 }
                 .checkbox-group {
                     flex-direction: row;
@@ -89,7 +89,7 @@ export default function(editor, categories) {
                 }
                 .form-submit-btn {
                     margin-top: 16px;
-                    background-color: #C61063;
+                    background-color: var(--brand-secondary, #3b82f6);
                     color: #fff;
                     border: none;
                     padding: 14px;
@@ -97,10 +97,12 @@ export default function(editor, categories) {
                     font-size: 16px;
                     font-weight: 700;
                     cursor: pointer;
-                    transition: background-color 0.2s;
+                    transition: all 0.2s;
                 }
                 .form-submit-btn:hover {
-                    background-color: #a00c50;
+                    background-color: var(--brand-secondary, #2563eb);
+                    filter: brightness(0.9);
+                    transform: translateY(-1px);
                 }
             </style>
         `,

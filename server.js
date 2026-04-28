@@ -197,6 +197,56 @@ http.createServer(async (req, res) => {
         return;
     }
 
+    // ── Routing: /preview/:projectName ───────────────────────────────
+    if (req.method === 'GET' && pathname.startsWith('/preview/')) {
+        try {
+            const projectName = decodeURIComponent(pathname.replace('/preview/', ''));
+            console.log(`\n👁️ Aperçu projet: "${projectName}"`);
+
+            // Fetch project
+            const result = await supabaseRequest('GET', `/Projects?project_name=eq.${encodeURIComponent(projectName)}&limit=1`);
+            
+            if (!result || result.length === 0) {
+                res.writeHead(404);
+                return res.end('Project not found');
+            }
+
+            const project = result[0];
+            let html = project.html;
+
+            // Extract school ID from project name (school-xxx__name)
+            const schoolMatch = projectName.match(/^school-([a-z0-9-]+)__/);
+            if (schoolMatch) {
+                const schoolId = schoolMatch[1];
+                const school = SCHOOLS.find(s => s.id === schoolId);
+                
+                if (school) {
+                    const primary = school.color || '#3b82f6';
+                    const secondary = school.secondaryColor || (schoolId === 'efap' ? '#1a1a1a' : '#2563eb');
+                    
+                    const brandStyles = `
+                        <style id="brand-variables-preview">
+                            :root {
+                                --brand-primary: ${primary};
+                                --brand-secondary: ${secondary};
+                            }
+                        </style>
+                    `;
+                    // Inject brand styles into the head
+                    html = html.replace('</head>', `${brandStyles}</head>`);
+                }
+            }
+
+            res.writeHead(200, { 'Content-Type': 'text/html' });
+            res.end(html);
+        } catch (e) {
+            console.log(`❌ Erreur Preview:`, e.message);
+            res.writeHead(500);
+            res.end('Error: ' + e.message);
+        }
+        return;
+    }
+
     // ── Routing: root → school selector, /?school=xxx → builder ──────
     if (req.method === 'GET' && pathname === '/') {
         const schoolParam = params.get('school');

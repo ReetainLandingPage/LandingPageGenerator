@@ -31,7 +31,7 @@ export default function(editor, categories) {
                 .hero-overlay {
                     position: absolute;
                     top: 0; left: 0; width: 100%; height: 100%;
-                    background: rgba(0, 0, 0, 0.5);
+                    background: linear-gradient(135deg, rgba(var(--brand-primary-rgb, 0,0,0), 0.8) 0%, rgba(0,0,0,0.4) 100%);
                 }
                 .hero-content {
                     position: relative;
@@ -59,7 +59,7 @@ export default function(editor, categories) {
                 }
                 .btn-main {
                     background: #fff;
-                    color: #000;
+                    color: var(--brand-primary, #000);
                     padding: 16px 32px;
                     border-radius: 8px;
                     text-decoration: none;
@@ -67,7 +67,7 @@ export default function(editor, categories) {
                     transition: all 0.3s;
                 }
                 .btn-main:hover {
-                    background: #e0e0e0;
+                    background: #f0f0f0;
                     transform: scale(1.05);
                 }
                 .btn-alt {
