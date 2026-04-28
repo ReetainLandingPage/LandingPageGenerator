@@ -1,16 +1,16 @@
 export default function(editor, categories) {
     editor.BlockManager.add('bande-rose', {
-        label: 'Bande Rose',
+        label: 'Brand Banner',
         category: categories.BRASSART,
         content: `
-            <section class="bande-rose-wrapper">
-                <div class="bande-rose-content">
-                    <img src="https://via.placeholder.com/600x120/A8174F/FFFFFF?text=Image+Bande+Rose" alt="Bande" class="bande-rose-img" />
+            <section class="bande-brand-wrapper">
+                <div class="bande-brand-content">
+                    <span class="bande-brand-text">Découvrez nos prochains événements</span>
                 </div>
             </section>
             <style>
-                .bande-rose-wrapper {
-                    background-color: #A8174F;
+                .bande-brand-wrapper {
+                    background-color: var(--brand-primary, #BE0D5C);
                     width: 100%;
                     min-height: 80px;
                     display: flex;
@@ -19,7 +19,7 @@ export default function(editor, categories) {
                     position: relative;
                     overflow: hidden;
                 }
-                .bande-rose-content {
+                .bande-brand-content {
                     width: 100%;
                     max-width: 1200px;
                     margin: 0 auto;
@@ -27,18 +27,20 @@ export default function(editor, categories) {
                     justify-content: center;
                     align-items: center;
                 }
-                .bande-rose-img {
-                    max-height: 120px;
-                    width: auto;
-                    object-fit: cover;
-                    display: block;
+                .bande-brand-text {
+                    color: #ffffff;
+                    font-family: 'Inter', sans-serif;
+                    font-size: 24px;
+                    font-weight: 700;
+                    letter-spacing: 0.05em;
+                    text-transform: uppercase;
                 }
                 @media (max-width: 768px) {
-                    .bande-rose-wrapper {
+                    .bande-brand-wrapper {
                         min-height: 60px;
                     }
-                    .bande-rose-img {
-                        display: none; /* On mobile, usually it's just the pink pattern according to your mockup */
+                    .bande-brand-text {
+                        font-size: 16px;
                     }
                 }
             </style>

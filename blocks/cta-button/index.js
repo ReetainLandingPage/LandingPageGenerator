@@ -14,20 +14,20 @@ export default function(editor, categories) {
                 }
                 .primary-cta {
                     display: inline-block;
-                    background: #3b82f6;
+                    background: var(--brand-primary, #3b82f6);
                     color: #fff;
                     padding: 14px 40px;
                     border-radius: 50px;
                     text-decoration: none;
                     font-weight: 700;
                     font-size: 18px;
-                    box-shadow: 0 10px 20px rgba(59, 130, 246, 0.2);
+                    box-shadow: 0 10px 20px rgba(var(--brand-primary-rgb, 59, 130, 246), 0.2);
                     transition: all 0.3s;
                 }
                 .primary-cta:hover {
-                    background: #2563eb;
+                    background: var(--brand-secondary, #2563eb);
                     transform: translateY(-3px);
-                    box-shadow: 0 15px 30px rgba(59, 130, 246, 0.3);
+                    box-shadow: 0 15px 30px rgba(var(--brand-primary-rgb, 59, 130, 246), 0.3);
                 }
             </style>
         `,

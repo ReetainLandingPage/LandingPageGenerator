@@ -4,17 +4,17 @@
     "name": "EFAP",
     "fullName": "École Française des Attachés de Presse",
     "description": "Communication, Relations Presse & Médias",
-    "color": "#C61063",
-    "colorLight": "rgba(198,16,99,0.12)",
+    "color": "#d9d0c1",
+    "secondaryColor": "#1a1a1a",
+    "colorLight": "rgba(217,208,193,0.2)",
     "emoji": "📰",
     "defaultBlocks": [
       "header-efap",
       "hero",
-      "bande-rose",
       "horizontal-menu",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
+      "chiffres-cles",
       "cta-button",
       "footer-efap"
     ]
@@ -24,12 +24,14 @@
     "name": "BRASSART",
     "fullName": "École d'Art et de Design Brassart",
     "description": "Design, Animation & Art Numérique",
-    "color": "#2563eb",
-    "colorLight": "rgba(37,99,235,0.12)",
+    "color": "#bc0b5d",
+    "secondaryColor": "#e91e63",
+    "colorLight": "rgba(188,11,93,0.12)",
     "emoji": "🎨",
     "defaultBlocks": [
       "header-brassart",
       "hero",
+      "bande-rose",
       "programme-editorial",
       "programme-list",
       "trois-raisons",
@@ -44,13 +46,13 @@
     "fullName": "Institut Supérieur des Arts et du Jeu Vidéo",
     "description": "Jeu Vidéo, Cinéma d'Animation & Musique",
     "color": "#7c3aed",
+    "secondaryColor": "#6d28d9",
     "colorLight": "rgba(124,58,237,0.12)",
     "emoji": "🎮",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -62,13 +64,13 @@
     "fullName": "L'Institut Supérieur des Arts Appliqués",
     "description": "Mode, Design Intérieur & Graphisme",
     "color": "#0d9488",
+    "secondaryColor": "#0f766e",
     "colorLight": "rgba(13,148,136,0.12)",
     "emoji": "✂️",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -80,13 +82,13 @@
     "fullName": "École de Communication Visuelle",
     "description": "Communication Visuelle, Motion & UX",
     "color": "#ea580c",
+    "secondaryColor": "#c2410c",
     "colorLight": "rgba(234,88,12,0.12)",
     "emoji": "🖥️",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-list",
-      "trois-raisons",
       "chiffres-cles",
       "form-sfmc",
       "cta-button",
@@ -99,13 +101,13 @@
     "fullName": "École Supérieure d'Arts Graphiques",
     "description": "Arts Graphiques, Architecture Intérieure",
     "color": "#15803d",
+    "secondaryColor": "#166534",
     "colorLight": "rgba(21,128,61,0.12)",
     "emoji": "🖌️",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-editorial",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -117,13 +119,13 @@
     "fullName": "Institut Supérieur du Design de Valenciennes",
     "description": "Design Produit, Design Espace & Numérique",
     "color": "#4338ca",
+    "secondaryColor": "#3730a3",
     "colorLight": "rgba(67,56,202,0.12)",
     "emoji": "📐",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -135,13 +137,13 @@
     "fullName": "MJM Graphic Design",
     "description": "Graphisme, Web Design & Motion Design",
     "color": "#dc2626",
+    "secondaryColor": "#b91c1c",
     "colorLight": "rgba(220,38,38,0.12)",
     "emoji": "🖼️",
     "defaultBlocks": [
       "header-efap",
       "hero",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -153,14 +155,13 @@
     "fullName": "SUP DE PUB — École de Publicité",
     "description": "Publicité, Stratégie de Marque & Digital",
     "color": "#d97706",
+    "secondaryColor": "#b45309",
     "colorLight": "rgba(217,119,6,0.12)",
     "emoji": "📣",
     "defaultBlocks": [
       "header-efap",
       "hero",
-      "bande-rose",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
@@ -172,6 +173,7 @@
     "fullName": "ESMOD — École Supérieure des Arts et Techniques de la Mode",
     "description": "Mode, Stylisme & Management du Luxe",
     "color": "#be185d",
+    "secondaryColor": "#9d174d",
     "colorLight": "rgba(190,24,93,0.12)",
     "emoji": "👗",
     "defaultBlocks": [
@@ -179,33 +181,9 @@
       "hero",
       "programme-editorial",
       "programme-list",
-      "trois-raisons",
       "form-sfmc",
       "cta-button",
       "footer-efap"
-    ]
-  },
-  {
-    "id": "icart",
-    "name": "ICART",
-    "fullName": "L'école du management culturel et du marché de l'art",
-    "description": "Management Culturel, Marché de l'Art & Médiation",
-    "color": "#E35111",
-    "colorLight": "rgba(227,81,17,0.12)",
-    "emoji": "🎭",
-    "defaultBlocks": [
-      "header-icart",
-      "hero",
-      "horizontal-menu-icart",
-      "bande-orange-icart",
-      "programme-list-icart",
-      "chiffres-cles-icart",
-      "carrousel-campus-icart",
-      "carrousel-temoignages-icart",
-      "reasons-icart",
-      "form-sfmc",
-      "cta-button",
-      "footer-icart"
     ]
   }
 ]
