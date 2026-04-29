@@ -136,8 +136,7 @@ http.createServer(async (req, res) => {
                     project_name: projectName,
                     html: fullHtml,
                     css: css,
-                    project_data: JSON.stringify(projectData),
-                    created_at: new Date().toISOString()
+                    project_data: JSON.stringify(projectData)
                 });
 
                 if (supaResult && supaResult.code) {

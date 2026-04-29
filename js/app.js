@@ -19,6 +19,7 @@ const BLOCK_THUMBNAILS = {
     'programme-editorial': 'assets/block-thumbnails/programme-editorial.svg',
     'trois-raisons': 'assets/block-thumbnails/trois-raisons.svg',
     'form-sfmc': 'assets/block-thumbnails/form-sfmc.svg',
+    'form-salesforce-core': 'assets/block-thumbnails/form-sfmc.svg',
     'chiffres-cles': 'assets/block-thumbnails/chiffres-cles.svg',
     Carrousel: 'assets/block-thumbnails/carrousel.svg',
     CarrouselTemoignages: 'assets/block-thumbnails/carrousel-temoignages.svg',
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const response = await fetch(`/api/school/${schoolId}?v=${Date.now()}`);
         if (response.ok) {
             CURRENT_SCHOOL = await response.json();
-            
+
             // Security overrides for main schools
             if (CURRENT_SCHOOL.id === 'efap') {
                 CURRENT_SCHOOL.secondaryColor = '#1a1a1a';
@@ -92,7 +93,7 @@ function initEditor(schoolId) {
     editor.on('load', () => {
         filterBlocksBySchool(editor, schoolId);
         injectBrandVariables(editor, CURRENT_SCHOOL);
-        
+
         const wrapper = editor.getWrapper();
         if (!wrapper || wrapper.components().length === 0) {
             loadDefaultTemplate(editor);
@@ -109,7 +110,7 @@ function injectBrandVariables(editor, school, intoMainDoc = false) {
     const secondary = school.secondaryColor || '#1a1a1a';
     const rgb = hexToRgb(primary) || '59, 130, 246';
     const css = `:root { --brand-primary: ${primary}; --brand-secondary: ${secondary}; --brand-primary-rgb: ${rgb}; }`;
-    
+
     if (intoMainDoc) {
         let style = document.getElementById('brand-variables-main');
         if (!style) {
@@ -140,10 +141,10 @@ function hexToRgb(hex) {
 }
 
 function filterBlocksBySchool(editor, schoolId) {
-    if (!schoolId || schoolId === 'master') return; 
+    if (!schoolId || schoolId === 'master') return;
     const bm = editor.BlockManager;
-    const allBlocks = bm.getAll().models; 
-    const targetSchoolName = schoolId.toUpperCase(); 
+    const allBlocks = bm.getAll().models;
+    const targetSchoolName = schoolId.toUpperCase();
     const blocksToRemove = [];
 
     allBlocks.forEach(block => {
@@ -204,7 +205,7 @@ function initUI(editor) {
     const modalCloseButton = modal.querySelector('.modal-header .close-modal');
 
     function closeModal() { modal.classList.add('hidden'); modalTitle.textContent = ''; modalBody.innerHTML = ''; modalFooter.innerHTML = ''; }
-    
+
     function openModal({ title, body = '', actions = [], onOpen }) {
         modalTitle.textContent = title; modalBody.innerHTML = body; modalFooter.innerHTML = '';
         actions.forEach(action => {
@@ -284,9 +285,13 @@ function initUI(editor) {
         const schoolId = CURRENT_SCHOOL?.id || 'unknown';
         const projectData = { projectName: `school-${schoolId}__${name}`, html: editor.getHtml(), css: editor.getCss(), projectData: editor.getProjectData() };
         try {
-            await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(projectData) });
+            const res = await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(projectData) });
+            if (!res.ok) throw new Error(await res.text());
             await showAlert({ title: 'Succès', message: 'Projet sauvegardé !' });
-        } catch (e) { console.error(e); }
+        } catch (e) { 
+            console.error(e);
+            await showAlert({ title: 'Erreur de sauvegarde', message: 'Impossible de sauvegarder le projet. ' + e.message });
+        }
     };
 
     // Preview
@@ -296,9 +301,13 @@ function initUI(editor) {
         const schoolId = CURRENT_SCHOOL?.id || 'unknown';
         const projectData = { projectName: `school-${schoolId}__${name}`, html: editor.getHtml(), css: editor.getCss(), projectData: editor.getProjectData() };
         try {
-            await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(projectData) });
+            const res = await fetch('/api/save', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(projectData) });
+            if (!res.ok) throw new Error(await res.text());
             window.open(`/preview/school-${schoolId}__${name}`, '_blank');
-        } catch (e) { console.error(e); }
+        } catch (e) { 
+            console.error(e);
+            await showAlert({ title: 'Erreur Preview', message: 'Impossible de générer l\'aperçu. La sauvegarde a échoué. ' + e.message });
+        }
     };
 
     // Open Project
