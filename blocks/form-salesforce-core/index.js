@@ -16,11 +16,11 @@ export default function (editor, categories) {
                     </div>
                     <!-- INJECTION DU SNIPPET SFMC POUR LES MESSAGES DE RETOUR -->
                    <div class="sfmc-snippet-messages" id="ipkr0e">
-                        %%[
+                        <div style="display:none;">%%[
                         /* Removed the invalid SET = v() lines. 
                         The variables are already populated by SSJS */
                         IF @sfStatus == "success" OR @sfStatus == "error" THEN
-                        ]%%
+                        ]%%</div>
                         <style>
                             /* Rend le conteneur des messages visible */
                             #ipkr0e {
@@ -60,15 +60,15 @@ export default function (editor, categories) {
                             }
                         </style>
 
-                        %%[ IF @sfStatus == "success" THEN ]%%
-                        
+                        <div style="display:none;">%%[ IF @sfStatus == "success" THEN ]%%</div>
+
                         <style>
                             /* Masque le formulaire en cas de succès */
                             #ibbb9b, .sf-core-form-wrapper { 
                                 display: none !important; 
                             }
                         </style>
-                        
+
                         <div class="sfmc-msg sfmc-msg--success">
                             <i class="fas fa-check-circle"></i>
                             <div>
@@ -78,7 +78,7 @@ export default function (editor, categories) {
                             </div>
                         </div>
 
-                        %%[ ELSEIF @sfStatus == "error" THEN ]%%
+                        <div style="display:none;">%%[ ELSEIF @sfStatus == "error" THEN ]%%</div>
 
                         <div class="sfmc-msg sfmc-msg--error">
                             <i class="fas fa-exclamation-circle"></i>
@@ -89,8 +89,8 @@ export default function (editor, categories) {
                             </div>
                         </div>
 
-                        %%[ ENDIF ]%%
-                        %%[ ENDIF ]%%
+                        <div style="display:none;">%%[ ENDIF ]%%
+                        %%[ ENDIF ]%%</div>
                     </div>
                     <form method="POST" action="%%=RequestParameter('PAGEURL')=%%" class="sf-core-form"><input
                             type="hidden" name="submitted" value="true" />
@@ -102,7 +102,7 @@ export default function (editor, categories) {
                                 <option value="brassart">BRASSART</option>
                                 <option value="icart">ICART</option>
                                 <!-- INJECTION DU SNIPPET POUR LA PICKLIST DYNAMIQUE SFMC -->
-                                
+
                                 %%=ContentBlockByKey("LPB_Picklist_Handler_AG")=%%
                             </select></div>
                         <div class="form-row">
@@ -137,3 +137,4 @@ export default function (editor, categories) {
         attributes: { class: 'gjs-fonts gjs-f-form' }
     });
 }
+
